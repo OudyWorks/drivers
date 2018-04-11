@@ -24,7 +24,7 @@ import MongoDB from '@oudyworks/drivers/MongoDB'
 let cursor = MongoDB.database.collection('collectionName').find()
 ```
 
-## getDatabase(name)
+## getDatabase(name = 'default')
 ```js
 import MongoDB from '@oudyworks/drivers/MongoDB'
 // conect to multiple databases and specify the name of each connection after config (database1, database2, database3)
