@@ -1,6 +1,6 @@
 {
   "name": "@oudyworks/drivers",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Some wraps fro drivers we use in our projects",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/OudyWorks/drivers#readme",
   "dependencies": {
     "amqplib": "^0.5.2",
+    "dataloader": "^1.4.0",
     "elasticsearch": "^14.2.2",
     "mongodb": "^3.0.6",
     "redis": "^2.8.0"
