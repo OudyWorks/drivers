@@ -1,5 +1,1 @@
-# @oudyworks/drivers
-
-checkout README of
-
-[MongoDB](./MongoDB)
+source/README.md

@@ -1,9 +1,10 @@
 # @oudyworks/drivers/MongoDB
 
 # MongoDB
+
 ## configure(url, database, options = {}, name = 'default')
 ```js
-import MongoDB from '@oudyworks/MongoDB'
+import MongoDB from '@oudyworks/drivers/MongoDB'
 
 const   url = 'mongodb://localhost:27017',
         databaseName = 'myproject'
@@ -17,14 +18,14 @@ MongoDB.configure(url, databaseName).then(
 
 ## database
 ```js
-import MongoDB from '@oudyworks/MongoDB'
+import MongoDB from '@oudyworks/drivers/MongoDB'
 
 let cursor = MongoDB.database.collection('collectionName').find()
 ```
 
 ## getDatabase(name)
 ```js
-import MongoDB from '@oudyworks/MongoDB'
+import MongoDB from '@oudyworks/drivers/MongoDB'
 // conect to multiple databases and specify the name of each connection after config (database1, database2, database3)
 Promise.all([
     MongoDB.configure('mongodb://server1:27017', 'project1', {}, 'database1'),
@@ -47,7 +48,7 @@ returns **ObjectID** from 'mongodb'
 ## IDRegex
 a Regular expression to test for **ObjectID** string
 ```js
-import MongoDB from '@oudyworks/MongoDB'
+import MongoDB from '@oudyworks/drivers/MongoDB'
 
 MongoDB.IDRegex.test('5acdb271dd7fdf707f8f24c9') // true
 MongoDB.IDRegex.test('notAnObjectIDString') // false
