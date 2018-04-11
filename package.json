@@ -1,0 +1,33 @@
+{
+  "name": "@oudyworks/drivers",
+  "version": "1.0.0",
+  "description": "Some wraps fro drivers we use in our projects",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel source --out-dir npm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "keywords": [
+    "driver",
+    "mongodb",
+    "elasticsearch",
+    "redis",
+    "rabbitmq"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers#readme",
+  "dependencies": {
+    "mongodb": "^3.0.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
