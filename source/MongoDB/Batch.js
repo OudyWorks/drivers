@@ -40,7 +40,7 @@ const getLoader = async (key, collection, database = 'default') => {
                 )
                 break
 
-            case 'query':
+            case 'loadAll':
                 loaders[key][database][collection] = new DataLoader(
                     keys => {
                         return Promise.all(
@@ -166,9 +166,9 @@ export default class Batch {
         )
 
     }
-    static query(query, collection, database = 'default') {
+    static loadAll(query, collection, database = 'default') {
 
-        return getLoader('query', collection, database).then(
+        return getLoader('loadAll', collection, database).then(
             loader =>
                 loader.load(query || {})
         )
