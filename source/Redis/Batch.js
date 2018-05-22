@@ -1,6 +1,8 @@
 import Redis from './index'
 import DataLoader from 'dataloader'
 
+let batchs = {}
+
 class Batch {
     static hget(key, field, client = 'default') {
         if(!batchs.hget)
