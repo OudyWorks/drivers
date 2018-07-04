@@ -36,6 +36,9 @@ const getLoader = async (key, collection, database = 'default') => {
                             (key, i) =>
                                 result[key] || null
                         )
+                    },
+                    {
+                        cache: false
                     }
                 )
                 break
