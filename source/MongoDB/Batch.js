@@ -78,7 +78,7 @@ const getLoader = async (key, collection, database = 'default') => {
                         return Promise.all(
                             keys.map(
                                 async query =>
-                                    MongoDB.getDatabase(database).collection(collection).countDocuments(query)
+                                    MongoDB.getDatabase(database).collection(collection).count(query)
                             )
                         )
                     },
