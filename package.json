@@ -1,6 +1,6 @@
 {
   "name": "@oudyworks/drivers",
-  "version": "1.0.13",
+  "version": "1.0.15",
   "description": "Some wraps fro drivers we use in our projects",
   "main": "index.js",
   "scripts": {
@@ -27,8 +27,8 @@
     "amqplib": "^0.5.2",
     "bluebird": "^3.5.1",
     "dataloader": "^1.4.0",
-    "elasticsearch": "^14.2.2",
-    "mongodb": "^3.0.10",
+    "elasticsearch": "^15.1.1",
+    "mongodb": "^3.1.0",
     "redis": "^2.8.0"
   },
   "devDependencies": {
