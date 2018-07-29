@@ -129,7 +129,7 @@ class Batch {
 
         }
     }
-)
+);
 
 // commands gets with key and count
 [
