@@ -1,6 +1,6 @@
 {
   "name": "@oudyworks/drivers",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "description": "Some wraps fro drivers we use in our projects",
   "main": "index.js",
   "scripts": {

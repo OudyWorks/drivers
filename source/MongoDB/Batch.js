@@ -3,7 +3,7 @@ import DataLoader from 'dataloader'
 
 let loaders = {}
 
-const getLoader = async (key, collection, database = 'default') => {
+const getLoader = async (key, collection, database = 'default', cache = false) => {
     if(!loaders[key])
         loaders[key] = {}
 
@@ -38,7 +38,7 @@ const getLoader = async (key, collection, database = 'default') => {
                         )
                     },
                     {
-                        cache: false
+                        cache
                     }
                 )
                 break
@@ -67,7 +67,7 @@ const getLoader = async (key, collection, database = 'default') => {
                         )
                     },
                     {
-                        cache: false
+                        cache
                     }
                 )
                 break
@@ -83,7 +83,7 @@ const getLoader = async (key, collection, database = 'default') => {
                         )
                     },
                     {
-                        cache: false
+                        cache
                     }
                 )
                 break
@@ -145,41 +145,41 @@ const getLoader = async (key, collection, database = 'default') => {
 }
 
 export default class Batch {
-    static load(id, collection, database = 'default') {
+    static load(id, collection, database = 'default', cache = false) {
 
-        return getLoader('load', collection, database).then(
+        return getLoader('load', collection, database, cache).then(
             loader =>
                 loader.load(`${id}`)
         )
 
     }
-    static loadMany(ids, collection, database = 'default') {
+    static loadMany(ids, collection, database = 'default', cache = false) {
 
-        return getLoader('load', collection, database).then(
+        return getLoader('load', collection, database, cache).then(
             loader =>
                 loader.loadMany(ids || [])
         )
 
     }
-    static clear(id, collection, database = 'default') {
+    static clear(id, collection, database = 'default', cache = false) {
 
-        return getLoader('load', collection, database).then(
+        return getLoader('load', collection, database, cache).then(
             loader =>
                 loader.clear(`${id}`)
         )
 
     }
-    static loadAll(query, collection, database = 'default') {
+    static loadAll(query, collection, database = 'default', cache = false) {
 
-        return getLoader('loadAll', collection, database).then(
+        return getLoader('loadAll', collection, database, cache).then(
             loader =>
                 loader.load(query || {})
         )
 
     }
-    static count(query, collection, database = 'default') {
+    static count(query, collection, database = 'default', cache = false) {
 
-        return getLoader('count', collection, database).then(
+        return getLoader('count', collection, database, cache).then(
             loader =>
                 loader.load(query || {})
         )
