@@ -131,4 +131,42 @@ class Batch {
     }
 )
 
+// commands gets with key and count
+[
+    'spop',
+    'srandmember'
+].forEach(
+    command => {
+        Batch[command] = function (key, client = 'default') {
+
+            if(!batchs[command])
+                batchs[command] = {}
+
+            if(!batchs[command][client])
+                batchs[command][client] = {}
+
+            if(!batchs[command][client][key])
+                batchs[command][client][key] = new DataLoader(
+                    keys =>
+                        new Promise(
+                            resolve => {
+                                Redis.getClient(client)[command](
+                                    key,
+                                    keys.length,
+                                    values =>
+                                        resolve(values)
+                                )
+                            }
+                        ),
+                    {
+                        cache: false
+                    }
+                )
+
+            return batchs[command][client][key].load(value)
+
+        }
+    }
+)
+
 export default Batch
