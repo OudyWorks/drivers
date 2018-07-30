@@ -163,7 +163,7 @@ class Batch {
                     }
                 )
 
-            return batchs[command][client][key].load(value)
+            return batchs[command][client][key].load(true)
 
         }
     }
