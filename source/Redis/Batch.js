@@ -153,7 +153,7 @@ class Batch {
                                 Redis.getClient(client)[command](
                                     key,
                                     keys.length,
-                                    values =>
+                                    (error, values) =>
                                         resolve(values)
                                 )
                             }
