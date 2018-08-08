@@ -16,15 +16,16 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
             case 'load':
                 loaders[key][database][collection] = new DataLoader(
                     async keys => {
-                        let result = {}
-                        await MongoDB.getDatabase(database).collection(collection).find({
+                        let result = {},
+                        cursor = MongoDB.getDatabase(database).collection(collection).find({
                             _id: {
                                 $in: keys.map(
                                     key =>
                                         MongoDB.IDRegex.test(key) ? MongoDB.ObjectID(key) : key
                                 )
                             }
-                        }).toArray().then(
+                        }).addCursorFlag('noCursorTimeout', true)
+                        await cursor.toArray().then(
                             documents => {
                                 documents.forEach(
                                     (document, i) =>
@@ -32,6 +33,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                                 )
                             }
                         )
+                        cursor.close()
                         return keys.map(
                             (key, i) =>
                                 result[key] || null
@@ -54,14 +56,15 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                                             page = 1,
                                             limit = 20
                                         } = key,
-                                        cursor = MongoDB.getDatabase(database).collection(collection).find(query)
-
-                                    return {
-                                        list: await cursor.limit(limit).skip(limit * (page - 1)).toArray(),
-                                        total: await cursor.count(),
-                                        page,
-                                        limit
-                                    }
+                                        cursor = MongoDB.getDatabase(database).collection(collection).find(query).addCursorFlag('noCursorTimeout', true),
+                                        $return = {
+                                            list: await cursor.limit(limit).skip(limit * (page - 1)).toArray(),
+                                            total: await cursor.count(),
+                                            page,
+                                            limit
+                                        }
+                                    cursor.close()
+                                    return $return
                                 }
                             )
                         )
@@ -78,7 +81,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                         return Promise.all(
                             keys.map(
                                 async query =>
-                                    MongoDB.getDatabase(database).collection(collection).count(query)
+                                    MongoDB.getDatabase(database).collection(collection).countDocuments(query)
                             )
                         )
                     },
