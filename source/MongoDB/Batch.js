@@ -1,150 +1,162 @@
 import MongoDB from './index'
 import DataLoader from 'dataloader'
+import TTLMap from '@oudyworks/ttlmap'
 
-let loaders = {}
+const loaders = new TTLMap()
 
 const getLoader = async (key, collection, database = 'default', cache = false) => {
-    if(!loaders[key])
-        loaders[key] = {}
 
-    if(!loaders[key][database])
-        loaders[key][database] = {}
+    key = [key, database, collection, cache].join(':')
 
-    if(!loaders[key][database][collection])
+    if(!loaders.get(key))
         switch(key) {
 
             case 'load':
-                loaders[key][database][collection] = new DataLoader(
-                    async keys => {
-                        let result = {},
-                        cursor = MongoDB.getDatabase(database).collection(collection).find({
-                            _id: {
-                                $in: keys.map(
-                                    key =>
-                                        MongoDB.IDRegex.test(key) ? MongoDB.ObjectID(key) : key
-                                )
-                            }
-                        }).addCursorFlag('noCursorTimeout', true)
-                        await cursor.toArray().then(
-                            documents => {
-                                documents.forEach(
-                                    (document, i) =>
-                                        result[`${document._id}`] = document
-                                )
-                            }
-                        )
-                        cursor.close()
-                        return keys.map(
-                            (key, i) =>
-                                result[key] || null
-                        )
-                    },
-                    {
-                        cache
-                    }
+                loaders.set(
+                    key,
+                    new DataLoader(
+                        async keys => {
+                            let result = {},
+                            cursor = MongoDB.getDatabase(database).collection(collection).find({
+                                _id: {
+                                    $in: keys.map(
+                                        key =>
+                                            MongoDB.IDRegex.test(key) ? MongoDB.ObjectID(key) : key
+                                    )
+                                }
+                            }).addCursorFlag('noCursorTimeout', true)
+                            await cursor.toArray().then(
+                                documents => {
+                                    documents.forEach(
+                                        (document, i) =>
+                                            result[`${document._id}`] = document
+                                    )
+                                }
+                            )
+                            cursor.close()
+                            return keys.map(
+                                (key, i) =>
+                                    result[key] || null
+                            )
+                        },
+                        {
+                            cache
+                        }
+                    )
                 )
                 break
 
             case 'loadAll':
-                loaders[key][database][collection] = new DataLoader(
-                    keys => {
-                        return Promise.all(
-                            keys.map(
-                                async key => {
-                                    let {
-                                            query = {},
-                                            page = 1,
-                                            limit = 20
-                                        } = key,
-                                        cursor = MongoDB.getDatabase(database).collection(collection).find(query),//.addCursorFlag('noCursorTimeout', true),
-                                        $return = {
-                                            list: await cursor.limit(limit).skip(limit * (page - 1)).toArray(),
-                                            total: await cursor.count(),
-                                            page,
-                                            limit
-                                        }
-                                    // cursor.close()
-                                    return $return
-                                }
+                loaders.set(
+                    key,
+                    new DataLoader(
+                        keys => {
+                            return Promise.all(
+                                keys.map(
+                                    async key => {
+                                        let {
+                                                query = {},
+                                                page = 1,
+                                                limit = 20
+                                            } = key,
+                                            cursor = MongoDB.getDatabase(database).collection(collection).find(query),//.addCursorFlag('noCursorTimeout', true),
+                                            $return = {
+                                                list: await cursor.limit(limit).skip(limit * (page - 1)).toArray(),
+                                                total: await cursor.count(),
+                                                page,
+                                                limit
+                                            }
+                                        return $return
+                                    }
+                                )
                             )
-                        )
-                    },
-                    {
-                        cache
-                    }
+                        },
+                        {
+                            cache
+                        }
+                    )
                 )
                 break
 
             case 'count':
-                loaders[key][database][collection] = new DataLoader(
-                    keys => {
-                        return Promise.all(
-                            keys.map(
-                                async query =>
-                                    MongoDB.getDatabase(database).collection(collection).countDocuments(query)
+                loaders.set(
+                    key,
+                    new DataLoader(
+                        keys => {
+                            return Promise.all(
+                                keys.map(
+                                    async query =>
+                                        MongoDB.getDatabase(database).collection(collection).countDocuments(query)
+                                )
                             )
-                        )
-                    },
-                    {
-                        cache
-                    }
+                        },
+                        {
+                            cache
+                        }
+                    )
                 )
                 break
 
                 case 'insert':
 
-                    loaders[key][database][collection] = new DataLoader(
-                        async keys => {
-                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
-                            keys.forEach(
-                                object =>
-                                    bulk.insert(object)
-                            )
-                            return (await bulk.execute()).getInsertedIds().map(id => id._id)
-                        },
-                        {
-                            cache: false
-                        }
-                    )
+                    loaders.set(
+                        key,
+                        new DataLoader(
+                            async keys => {
+                                let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
+                                keys.forEach(
+                                    object =>
+                                        bulk.insert(object)
+                                )
+                                return (await bulk.execute()).getInsertedIds().map(id => id._id)
+                            },
+                            {
+                                cache: false
+                            }
+                        )
+                    ) 
 
                     break
 
                 case 'update':
 
-                    loaders[key][database][collection] = new DataLoader(
-                        async keys => {
-                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
-                            keys.forEach(
-                                ([id, payload]) => {
-
-                                    if(!Array.isArray(payload))
-                                        payload = [payload]
-
-                                    payload.filter(
-                                        payload =>
-                                            Object.values(payload).filter(value => value).length
-                                    ).forEach(
-                                        payload =>
-                                            bulk.find({
-                                                _id: MongoDB.IDRegex.test(id) ? MongoDB.ObjectID(id) : id
-                                            }).updateOne(payload)
-                                    )
-
-                                }
-                            )
-                            await bulk.execute()
-                            return keys.map(a => true)
-                        },
-                        {
-                            cache: false
-                        }
+                    loaders.set(
+                        key,
+                        new DataLoader(
+                            async keys => {
+                                let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
+                                keys.forEach(
+                                    ([id, payload]) => {
+    
+                                        if(!Array.isArray(payload))
+                                            payload = [payload]
+    
+                                        payload.filter(
+                                            payload =>
+                                                Object.values(payload).filter(value => value).length
+                                        ).forEach(
+                                            payload =>
+                                                bulk.find({
+                                                    _id: MongoDB.IDRegex.test(id) ? MongoDB.ObjectID(id) : id
+                                                }).updateOne(payload)
+                                        )
+    
+                                    }
+                                )
+                                await bulk.execute()
+                                return keys.map(a => true)
+                            },
+                            {
+                                cache: false
+                            }
+                        )
                     )
 
                     break
 
         }
 
-    return loaders[key][database][collection]
+    return loaders.get(key)
 }
 
 export default class Batch {

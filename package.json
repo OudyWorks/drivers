@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/OudyWorks/drivers#readme",
   "dependencies": {
+    "@oudyworks/ttlmap": "^1.0.5",
     "amqplib": "^0.5.2",
     "bluebird": "^3.5.1",
     "dataloader": "^1.4.0",
