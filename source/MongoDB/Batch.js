@@ -6,14 +6,14 @@ const loaders = new TTLMap()
 
 const getLoader = async (key, collection, database = 'default', cache = false) => {
 
-    key = [key, database, collection, cache].join(':')
+    let _key = [key, database, collection, cache].join(':')
 
-    if(!loaders.get(key))
+    if(!loaders.get(_key))
         switch(key) {
 
             case 'load':
                 loaders.set(
-                    key,
+                    _key,
                     new DataLoader(
                         async keys => {
                             let result = {},
@@ -48,7 +48,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
 
             case 'loadAll':
                 loaders.set(
-                    key,
+                    _key,
                     new DataLoader(
                         keys => {
                             return Promise.all(
@@ -80,7 +80,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
 
             case 'count':
                 loaders.set(
-                    key,
+                    _key,
                     new DataLoader(
                         keys => {
                             return Promise.all(
@@ -97,66 +97,66 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                 )
                 break
 
-                case 'insert':
+            case 'insert':
 
-                    loaders.set(
-                        key,
-                        new DataLoader(
-                            async keys => {
-                                let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
-                                keys.forEach(
-                                    object =>
-                                        bulk.insert(object)
-                                )
-                                return (await bulk.execute()).getInsertedIds().map(id => id._id)
-                            },
-                            {
-                                cache: false
-                            }
-                        )
-                    ) 
-
-                    break
-
-                case 'update':
-
-                    loaders.set(
-                        key,
-                        new DataLoader(
-                            async keys => {
-                                let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
-                                keys.forEach(
-                                    ([id, payload]) => {
-    
-                                        if(!Array.isArray(payload))
-                                            payload = [payload]
-    
-                                        payload.filter(
-                                            payload =>
-                                                Object.values(payload).filter(value => value).length
-                                        ).forEach(
-                                            payload =>
-                                                bulk.find({
-                                                    _id: MongoDB.IDRegex.test(id) ? MongoDB.ObjectID(id) : id
-                                                }).updateOne(payload)
-                                        )
-    
-                                    }
-                                )
-                                await bulk.execute()
-                                return keys.map(a => true)
-                            },
-                            {
-                                cache: false
-                            }
-                        )
+                loaders.set(
+                    _key,
+                    new DataLoader(
+                        async keys => {
+                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
+                            keys.forEach(
+                                object =>
+                                    bulk.insert(object)
+                            )
+                            return (await bulk.execute()).getInsertedIds().map(id => id._id)
+                        },
+                        {
+                            cache: false
+                        }
                     )
+                ) 
 
-                    break
+                break
+
+            case 'update':
+
+                loaders.set(
+                    _key,
+                    new DataLoader(
+                        async keys => {
+                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
+                            keys.forEach(
+                                ([id, payload]) => {
+
+                                    if(!Array.isArray(payload))
+                                        payload = [payload]
+
+                                    payload.filter(
+                                        payload =>
+                                            Object.values(payload).filter(value => value).length
+                                    ).forEach(
+                                        payload =>
+                                            bulk.find({
+                                                _id: MongoDB.IDRegex.test(id) ? MongoDB.ObjectID(id) : id
+                                            }).updateOne(payload)
+                                    )
+
+                                }
+                            )
+                            await bulk.execute()
+                            return keys.map(a => true)
+                        },
+                        {
+                            cache: false
+                        }
+                    )
+                )
+
+                break
 
         }
 
-    return loaders.get(key)
+    return loaders.get(_key)
 }
 
 export default class Batch {
