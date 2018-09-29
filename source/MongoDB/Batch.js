@@ -8,8 +8,8 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
 
     let _key = [key, database, collection, cache].join(':')
 
-    if(!loaders.get(_key))
-        switch(key) {
+    if (!loaders.get(_key))
+        switch (key) {
 
             case 'load':
                 loaders.set(
@@ -17,14 +17,14 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                     new DataLoader(
                         async keys => {
                             let result = {},
-                            cursor = MongoDB.getDatabase(database).collection(collection).find({
-                                _id: {
-                                    $in: keys.map(
-                                        key =>
-                                            MongoDB.IDRegex.test(key) ? MongoDB.ObjectID(key) : key
-                                    )
-                                }
-                            }).addCursorFlag('noCursorTimeout', true)
+                                cursor = MongoDB.getDatabase(database).collection(collection).find({
+                                    _id: {
+                                        $in: keys.map(
+                                            key =>
+                                                MongoDB.IDRegex.test(key) ? MongoDB.ObjectID(key) : key
+                                        )
+                                    }
+                                }).addCursorFlag('noCursorTimeout', true)
                             await cursor.toArray().then(
                                 documents => {
                                     documents.forEach(
@@ -55,10 +55,10 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                                 keys.map(
                                     async key => {
                                         let {
-                                                query = {},
-                                                page = 1,
-                                                limit = 20
-                                            } = key,
+                                            query = {},
+                                            page = 1,
+                                            limit = 20
+                                        } = key,
                                             cursor = MongoDB.getDatabase(database).collection(collection).find(query),//.addCursorFlag('noCursorTimeout', true),
                                             $return = {
                                                 list: await cursor.limit(limit).skip(limit * (page - 1)).toArray(),
@@ -114,7 +114,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                             cache: false
                         }
                     )
-                ) 
+                )
 
                 break
 
@@ -128,7 +128,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                             keys.forEach(
                                 ([id, payload]) => {
 
-                                    if(!Array.isArray(payload))
+                                    if (!Array.isArray(payload))
                                         payload = [payload]
 
                                     payload.filter(
@@ -153,7 +153,28 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                 )
 
                 break
+            case 'upsert':
+                loaders.set(
+                    _key,
+                    new DataLoader(
+                        keys => {
+                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
+                            keys.forEach(
+                                ([id, payload]) => {
+                                    bulk.find({
+                                        _id: MongoDB.IDRegex.test(id) ? MongoDB.ObjectID(id) : id
+                                    }).upsert().replaceOne(payload)
+                                }
+                            )
+                            return bulk.execute().then(() => keys)
+                        },
+                        {
+                            cache: false
+                        }
+                    )
+                )
 
+                break
         }
 
     return loaders.get(_key)
@@ -211,6 +232,14 @@ export default class Batch {
     static update(id, payload, collection, database = 'default') {
 
         return getLoader('update', collection, database).then(
+            loader =>
+                loader.load([id, payload])
+        )
+
+    }
+    static upsert(id, payload, collection, database = 'default') {
+
+        return getLoader('upsert', collection, database).then(
             loader =>
                 loader.load([id, payload])
         )
