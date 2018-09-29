@@ -103,7 +103,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                     _key,
                     new DataLoader(
                         async keys => {
-                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
+                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeOrderedBulkOp()
                             keys.forEach(
                                 object =>
                                     bulk.insert(object)
@@ -124,7 +124,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                     _key,
                     new DataLoader(
                         async keys => {
-                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeUnorderedBulkOp()
+                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeOrderedBulkOp()
                             keys.forEach(
                                 ([id, payload]) => {
 
