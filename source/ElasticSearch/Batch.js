@@ -18,10 +18,15 @@ function getLoader(key, client, index, type, cache = false) {
                             ids: keys
                         }
                     }).then(({ docs }) => {
-                        return docs.map(document => ({
-                            id: document._id,
-                            ...document._source
-                        }))
+                        return docs.map(
+                            document =>
+                                Object.assign(
+                                    {
+                                        id: document._id
+                                    },
+                                    document._source
+                                )
+                        )
                     })
                 }, { cache }))
                 break
@@ -39,10 +44,15 @@ function getLoader(key, client, index, type, cache = false) {
                         }).then(
                             result => {
                                 return {
-                                    list: result.hits.hits.map(document => ({
-                                        id: document._id,
-                                        ...document._source
-                                    })),
+                                    list: result.hits.hits.map(
+                                        document =>
+                                            Object.assign(
+                                                {
+                                                    id: document._id
+                                                },
+                                                document._source
+                                            )
+                                    ),
                                     total: result.hits.total,
                                     page: query.page,
                                     limit: query.limit
