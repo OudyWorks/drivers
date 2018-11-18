@@ -1,4 +1,4 @@
-const Interface = require('../interface'),
+const Interface = require('@oudy/drivers/interface'),
   {
     MongoClient
   } = mongodb = require('mongodb')

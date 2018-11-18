@@ -1,14 +1,17 @@
 {
-  "name": "mongodb",
+  "name": "@oudy/mongodb",
   "version": "1.0.0",
   "description": "MongoDB Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {
-    
+    "postinstall": "[ $(node -p \"try {require('mongodb/package.json').version} catch(e) {}\") = \"undefined\" ] && npm install mongodb@3"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "peerDependencies": {
+    "mongodb": "3.x"
   },
   "keywords": [
     "driver",
@@ -20,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/OudyWorks/drivers/issues"
   },
-  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/MongoDB#readme"
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/MongoDB#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.0"
+  }
 }
