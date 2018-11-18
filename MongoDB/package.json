@@ -1,7 +1,7 @@
 {
-  "name": "@oudy/drivers",
+  "name": "mongodb",
   "version": "1.0.0",
-  "description": "a Wrap for database/services we use on projects",
+  "description": "MongoDB Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {
     
@@ -13,17 +13,12 @@
   "keywords": [
     "driver",
     "database",
-    "mongodb",
-    "elasticsearch",
-    "redis",
-    "amqp",
-    "rabbitmq",
-    "mysql"
+    "mongodb"
   ],
   "author": "Ayoub Oudmane <ayoub@oudmane.me>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/OudyWorks/drivers/issues"
   },
-  "homepage": "https://github.com/OudyWorks/drivers#readme"
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/MongoDB#readme"
 }

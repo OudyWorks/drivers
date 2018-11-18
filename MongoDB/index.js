@@ -1,12 +1,11 @@
-const Implementation = require('../implementation'),
+const Interface = require('../interface'),
   {
-    MongoClient,
-    ObjectID
+    MongoClient
   } = mongodb = require('mongodb')
 
 const IDRegex = /^[0-9a-fA-F]{24}$/
 
-class MongoDB extends Implementation.extend(mongodb) {
+class MongoDB extends Interface.extend(mongodb) {
   static configureFor() {
     // get the arguments as Array
     const args = Array.from(arguments),
