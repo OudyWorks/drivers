@@ -1,10 +1,10 @@
 {
   "name": "@oudy/mongodb",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "MongoDB Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {
-    "postinstall": "[ $(node -p \"try {require('mongodb/package.json').version} catch(e) {}\") = \"undefined\" ] && npm install mongodb@3"
+    "preinstall": "[ $(node -p \"try {require('mongodb/package.json').version} catch(e) {}\") = \"undefined\" ] && npm install mongodb@3"
   },
   "repository": {
     "type": "git",
