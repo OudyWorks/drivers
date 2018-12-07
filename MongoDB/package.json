@@ -26,6 +26,7 @@
   "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/MongoDB#readme",
   "dependencies": {
     "@oudy/drivers": "^1.0.0",
+    "dataloader": "^1.4.0",
     "mongodb": "^3.1.10",
     "sift": "^7.0.1"
   }
