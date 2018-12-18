@@ -13,8 +13,8 @@ module.exports = class MongoDBBatch {
       batches.set(
         key,
         batch = new Dataloader(
-          keys =>
-            MongoDB.getConnection(database).collection(collection).find(
+          keys => {
+            return MongoDB.getConnection(database).collection(collection).find(
               {
                 _id: {
                   $in: keys.map(
@@ -35,6 +35,7 @@ module.exports = class MongoDBBatch {
                     ).shift()
                 )
             )
+          }
         )
       )
     }
@@ -73,7 +74,9 @@ module.exports = class MongoDBBatch {
             )
             return bulk.execute().then(
               response =>
-                response.getInsertedIds().map(id => id._id.toHexString())
+                response.getInsertedIds().map(
+                  id => id._id.toHexString()
+                )
             )
           },
           {
