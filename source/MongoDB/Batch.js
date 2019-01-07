@@ -56,10 +56,11 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                                     async key => {
                                         let {
                                             query = {},
+                                            sort = {} ,
                                             page = 1,
                                             limit = 20
                                         } = key,
-                                            cursor = MongoDB.getDatabase(database).collection(collection).find(query),//.addCursorFlag('noCursorTimeout', true),
+                                            cursor = MongoDB.getDatabase(database).collection(collection).find(query).sort(sort),//.addCursorFlag('noCursorTimeout', true),
                                             $return = {
                                                 list: await cursor.limit(limit).skip(limit * (page - 1)).toArray(),
                                                 total: await cursor.count(),
