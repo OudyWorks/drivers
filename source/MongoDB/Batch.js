@@ -56,7 +56,7 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                                     async key => {
                                         let {
                                             query = {},
-                                            sort = {} ,
+                                            sort = {},
                                             page = 1,
                                             limit = 20
                                         } = key,
@@ -125,7 +125,8 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                     _key,
                     new DataLoader(
                         async keys => {
-                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeOrderedBulkOp()
+                            let bulk = MongoDB.getDatabase(database).collection(collection).initializeOrderedBulkOp(),
+                                run = false
                             keys.forEach(
                                 ([id, payload]) => {
 
@@ -136,15 +137,18 @@ const getLoader = async (key, collection, database = 'default', cache = false) =
                                         payload =>
                                             Object.values(payload).filter(value => value).length
                                     ).forEach(
-                                        payload =>
+                                        payload => {
+                                            run = true
                                             bulk.find({
                                                 _id: MongoDB.IDRegex.test(id) ? MongoDB.ObjectID(id) : id
                                             }).updateOne(payload)
+                                        }
                                     )
 
                                 }
                             )
-                            await bulk.execute()
+                            if (run)
+                                await bulk.execute()
                             return keys.map(a => true)
                         },
                         {
