@@ -1,0 +1,32 @@
+{
+  "name": "@oudy/redis",
+  "version": "1.0.1",
+  "description": "Redis Driver based on @oudy/drivers Interface",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "peerDependencies": {
+    "@oudy/drivers": "1.x",
+    "redis": "2.x",
+    "bluebird": "3.x"
+  },
+  "keywords": [
+    "driver",
+    "database",
+    "redis"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/Redis#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.0",
+    "bluebird": "^3.5.3",
+    "redis": "^2.8.0"
+  }
+}
