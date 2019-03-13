@@ -73,10 +73,11 @@ module.exports = class MongoDBBatch {
                 bulk.insert(object)
             )
             return bulk.execute().then(
-              response =>
-                response.getInsertedIds().map(
+              response => {
+                return response.getInsertedIds().map(
                   id => id._id.toHexString()
                 )
+              }
             )
           },
           {
@@ -104,7 +105,7 @@ module.exports = class MongoDBBatch {
             )
             return bulk.execute().then(
               response =>
-                payloads.map(a => true)
+                payloads.map(a => false)
             )
           },
           {
@@ -131,8 +132,10 @@ module.exports = class MongoDBBatch {
                 }).upsert().replaceOne(payload)
             )
             return bulk.execute().then(
-              response =>
-                payloads.map(a => true)
+              response => {
+                const ids = response.getUpsertedIds().map(upid => upid._id.toHexString ? upid._id.toHexString() : upid._id)
+                return payloads.map(({id}) => ids.includes(id) && id)
+              }
             )
           },
           {

@@ -2,3 +2,4 @@ MongoDB
 ElasticSearch
 Redis
 AMQP
+*.test.js

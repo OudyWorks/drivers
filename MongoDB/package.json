@@ -1,6 +1,6 @@
 {
   "name": "@oudy/mongodb",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "MongoDB Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
