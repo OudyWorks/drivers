@@ -15,7 +15,7 @@ class Batch {
           keys => {
             return new Promise(
               resolve => {
-                Redis.getClient(client).hmget(
+                Redis.getConnection(client).hmget(
                   key,
                   keys,
                   (error, values) => {
@@ -49,7 +49,7 @@ class Batch {
             )
             return new Promise(
               resolve => {
-                Redis.getClient(client).hmset(
+                Redis.getConnection(client).hmset(
                   key,
                   values,
                   () =>
@@ -78,7 +78,7 @@ class Batch {
         new DataLoader(
           keys => new Promise(
             resolve => {
-              Redis.getClient(client).multi(
+              Redis.getConnection(client).multi(
                 keys.map(
                   value => [
                     'sismember',
@@ -123,7 +123,7 @@ class Batch {
             keys =>
               new Promise(
                 resolve => {
-                  Redis.getClient(client)[command](
+                  Redis.getConnection(client)[command](
                     key,
                     keys,
                     () =>
@@ -161,7 +161,7 @@ class Batch {
             counts =>
               new Promise(
                 resolve => {
-                  Redis.getClient(client)[command](
+                  Redis.getConnection(client)[command](
                     key,
                     counts.reduce((a, b) => a + b),
                     (error, values) => {
