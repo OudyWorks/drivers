@@ -5,7 +5,8 @@ const Redis = require('./index'),
 
 class Batch {
   static hget(key, field, client = 'default') {
-    const _key = ['hget', key, client].join(':'),
+
+    let _key = ['hget', key, client].join(':'),
       batch = batches.get(_key)
 
     if (!batch)
@@ -69,7 +70,7 @@ class Batch {
   }
   static sismember(key, value, client = 'default') {
 
-    const _key = ['sismember', key, client].join(':'),
+    let _key = ['sismember', key, client].join(':'),
       batch = batches.get(_key)
 
     if (!batch)

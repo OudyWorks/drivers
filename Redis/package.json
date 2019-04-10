@@ -1,6 +1,6 @@
 {
   "name": "@oudy/redis",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Redis Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
