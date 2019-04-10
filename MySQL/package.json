@@ -1,0 +1,30 @@
+{
+  "name": "@oudy/mysql",
+  "version": "1.0.0",
+  "description": "MySQL Driver based on @oudy/drivers Interface",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "peerDependencies": {
+    "@oudy/drivers": "1.x",
+    "mysql": "2.x"
+  },
+  "keywords": [
+    "driver",
+    "database",
+    "mysql"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/MySQL#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.0",
+    "mysql": "^2.16.0"
+  }
+}
