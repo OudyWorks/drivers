@@ -1,7 +1,11 @@
 const Redis = require('./index'),
   DataLoader = require('dataloader'),
   TTLMap = require('@oudy/ttlmap'),
-  batches = new TTLMap()
+  batches = new TTLMap(),
+  defaultDataLoader = {
+    cache: false,
+    maxBatchSize: 20
+  }
 
 class Batch {
   static hget(key, field, client = 'default') {
@@ -26,9 +30,7 @@ class Batch {
               }
             )
           },
-          {
-            cache: false
-          }
+          defaultDataLoader
         )
       ).get(_key)
 
@@ -59,9 +61,7 @@ class Batch {
               }
             )
           },
-          {
-            cache: false
-          }
+          defaultDataLoader
         )
       ).get(_key)
 
@@ -93,9 +93,7 @@ class Batch {
               )
             }
           ),
-          {
-            cache: false
-          }
+          defaultDataLoader
         )
       ).get(_key)
 
@@ -132,9 +130,7 @@ class Batch {
                   )
                 }
               ),
-            {
-              cache: false
-            }
+              defaultDataLoader
           )
         ).get(_key)
 
@@ -181,9 +177,7 @@ class Batch {
                   )
                 }
               ),
-            {
-              cache: false
-            }
+              defaultDataLoader
           )
         ).get(_key)
 
