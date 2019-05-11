@@ -7,7 +7,7 @@ const batchs = new TTLMap()
 class Batch {
     static hget(key, field, client = 'default') {
         const _key = ['hget', key, client].join(':')
-        if(!batchs.get(_key))
+        if (!batchs.get(_key))
             batchs.set(
                 _key,
                 new DataLoader(
@@ -33,7 +33,7 @@ class Batch {
     }
     static hset(key, field, value, client = 'default') {
         const _key = ['hset', key, client].join(':')
-        if(!batchs.get(_key))
+        if (!batchs.get(_key))
             batchs.set(
                 _key,
                 new DataLoader(
@@ -62,7 +62,7 @@ class Batch {
     }
     static sismember(key, value, client = 'default') {
         const _key = ['sismember', key, client].join(':')
-        if(!batchs.get(_key))
+        if (!batchs.get(_key))
             batchs.set(
                 _key,
                 new DataLoader(
@@ -104,7 +104,7 @@ class Batch {
 
             const _key = [command, key, client].join(':')
 
-            if(!batchs.get(_key))
+            if (!batchs.get(_key))
                 batchs.set(
                     _key,
                     new DataLoader(
@@ -141,7 +141,7 @@ class Batch {
 
             const _key = [command, key, client].join(':')
 
-            if(!batchs.get(_key))
+            if (!batchs.get(_key))
                 batchs.set(
                     _key,
                     new DataLoader(
@@ -151,8 +151,11 @@ class Batch {
                                     Redis.getClient(client)[command](
                                         key,
                                         keys.length,
-                                        (error, values) =>
-                                            resolve(values)
+                                        (error, values = []) =>
+                                            resolve(new Array(keys.length).fill(null).map(
+                                                (value, i) =>
+                                                    values[i]
+                                            ))
                                     )
                                 }
                             ),
