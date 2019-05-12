@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "a Wrap for database/services we use on projects",
   "main": "index.js",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OudyWorks/drivers.git"
