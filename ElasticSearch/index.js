@@ -1,7 +1,5 @@
 const Interface = require('@oudy/drivers/interface'),
-  {
-    Client
-  } = elasticsearch = require('elasticsearch')
+  elasticsearch = require('elasticsearch')
 
 class ElasticSearch extends Interface.extend(elasticsearch) {
   static configureFor() {
@@ -12,7 +10,7 @@ class ElasticSearch extends Interface.extend(elasticsearch) {
       // url and options
       [options] = args,
 
-      connection = new Client(options)
+      connection = new elasticsearch.Client(options)
     return connection.ping().then(
       () =>
         super.configureFor(name, connection)

@@ -1,11 +1,11 @@
-const Interface = require('@oudy/drivers/interface'),
-  {
-    MongoClient
-  } = mongodb = require('mongodb')
+import {
+  extend
+} from '@oudy/drivers/interface'
+import mongodb from 'mongodb'
 
 const IDRegex = /^[0-9a-fA-F]{24}$/
 
-class MongoDB extends Interface.extend(mongodb) {
+class MongoDB extends extend(mongodb) {
   static configureFor() {
     // get the arguments as Array
     const args = Array.from(arguments),
@@ -15,17 +15,14 @@ class MongoDB extends Interface.extend(mongodb) {
       database = args.pop() || 'test',
       // url and options
       [url = 'mongodb://localhost:27017', options] = args
-    return MongoClient.connect.apply(MongoClient, [url, options]).then(
+    return mongodb.MongoClient.connect.apply(mongodb.MongoClient, [url, options]).then(
       connection =>
         super.configureFor(name, connection.db(database))
     )
   }
 }
 
-Object.assign(
-  MongoDB,
-  {
-    IDRegex
-  }
-)
-module.exports = MongoDB
+export {
+  IDRegex,
+}
+export default MongoDB

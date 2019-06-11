@@ -1,11 +1,14 @@
-const {
-  IDRegex, ObjectID
-} = MongoDB = require('./index'),
-  sift = require('sift').default,
-  Dataloader = require('dataloader'),
-  batches = new Map()
+import {
+  IDRegex,
+  ObjectID,
+  default as MongoDB
+} from './index'
+import sift from 'sift'
+import Dataloader from 'dataloader'
 
-module.exports = class MongoDBBatch {
+const batches = new Map()
+
+class MongoDBBatch {
   static load(id, collection, database = 'default') {
     let key = ['load', database, collection].join(':'),
       batch = batches.get(key)
@@ -134,7 +137,7 @@ module.exports = class MongoDBBatch {
             return bulk.execute().then(
               response => {
                 const ids = response.getUpsertedIds().map(upid => upid._id.toHexString ? upid._id.toHexString() : upid._id)
-                return payloads.map(({id}) => ids.includes(id) && id)
+                return payloads.map(({ id }) => ids.includes(id) && id)
               }
             )
           },
@@ -147,3 +150,5 @@ module.exports = class MongoDBBatch {
     return batch.load({ id, payload })
   }
 }
+
+export default MongoDBBatch
