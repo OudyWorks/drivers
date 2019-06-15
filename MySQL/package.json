@@ -1,6 +1,6 @@
 {
   "name": "@oudy/mysql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MySQL Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/MySQL#readme",
   "dependencies": {
-    "@oudy/drivers": "^1.0.0",
-    "mysql": "^2.16.0"
+    "@oudy/drivers": "^1.0.1",
+    "mysql": "^2.17.1"
   }
 }

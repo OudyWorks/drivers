@@ -1,7 +1,7 @@
 {
   "name": "@oudy/memory-fs",
-  "version": "1.0.0",
-  "description": "MySQL Driver based on @oudy/drivers Interface",
+  "version": "1.0.1",
+  "description": "memory-fs Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
   "repository": {
@@ -14,7 +14,6 @@
   },
   "keywords": [
     "driver",
-    "database",
     "memory-fs"
   ],
   "author": "Ayoub Oudmane <ayoub@oudmane.me>",

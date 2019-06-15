@@ -2,4 +2,6 @@ MongoDB
 ElasticSearch
 Redis
 AMQP
+MySQL
+memory-fs
 *.test.js

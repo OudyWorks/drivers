@@ -1,7 +1,9 @@
-const Interface = require('@oudy/drivers/interface'),
-  mysql = require('mysql')
+import {
+  extend
+} from '@oudy/drivers/interface'
+import mysql from 'mysql'
 
-class MySQL extends Interface.extend(class { }) {
+class MySQL extends extend(class { }) {
   static configureFor() {
     // get the arguments as Array
     const args = Array.from(arguments),
@@ -36,6 +38,6 @@ class MySQL extends Interface.extend(class { }) {
   }
 }
 
-Object.assign(MySQL, mysql)
+export * from 'mysql'
 
-module.exports = MySQL
+export default MySQL

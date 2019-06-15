@@ -1,7 +1,8 @@
-const Interface = require('@oudy/drivers/interface'),
-  fs = require('memory-fs')
-
-class MemoryFileSystem extends Interface.extend(fs) {
+import {
+  extend
+} from '@oudy/drivers/interface'
+import fs from 'memory-fs'
+class MemoryFileSystem extends extend(fs) {
   static configureFor() {
     // get the arguments as Array
     const args = Array.from(arguments),
@@ -17,5 +18,4 @@ class MemoryFileSystem extends Interface.extend(fs) {
     )
   }
 }
-
-module.exports = MemoryFileSystem
+export default MemoryFileSystem

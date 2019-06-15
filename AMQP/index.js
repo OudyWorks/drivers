@@ -1,9 +1,11 @@
-const Interface = require('@oudy/drivers/interface'),
-  {
-    connect
-  } = amqplib = require('amqplib')
+import {
+  extend
+} from '@oudy/drivers/interface'
+import {
+  connect
+} from 'amqplib'
 
-class AMQP extends Interface.extend(class {}) {
+class AMQP extends extend(class { }) {
   static configureFor() {
     // get the arguments as Array
     const args = Array.from(arguments),
@@ -19,6 +21,6 @@ class AMQP extends Interface.extend(class {}) {
   }
 }
 
-Object.assign(AMQP, amqplib)
+export * from 'amqplib'
 
-module.exports = AMQP
+export default AMQP

@@ -1,11 +1,13 @@
-const Interface = require('@oudy/drivers/interface'),
-  redis = require('redis'),
-  bluebird = require('bluebird')
+import {
+  extend
+} from '@oudy/drivers/interface'
+import redis from 'redis'
+import bluebird from 'bluebird'
 
 bluebird.promisifyAll(redis.RedisClient.prototype)
 bluebird.promisifyAll(redis.Multi.prototype)
 
-class Redis extends Interface.extend(class {}) {
+class Redis extends extend(class {}) {
   static configureFor() {
     // get the arguments as Array
     const args = Array.from(arguments),
@@ -36,6 +38,6 @@ class Redis extends Interface.extend(class {}) {
   }
 }
 
-Object.assign(Redis, redis)
+export * from 'redis'
 
-module.exports = Redis
+export default Redis

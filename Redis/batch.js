@@ -1,7 +1,8 @@
-const Redis = require('./index'),
-  DataLoader = require('dataloader'),
-  TTLMap = require('@oudy/ttlmap'),
-  batches = new TTLMap(),
+import Redis from './index'
+import DataLoader from 'dataloader'
+import TTLMap from '@oudy/ttlmap'
+
+const batches = new TTLMap(),
   defaultDataLoader = {
     cache: false,
     maxBatchSize: 20
@@ -130,7 +131,7 @@ class Batch {
                   )
                 }
               ),
-              defaultDataLoader
+            defaultDataLoader
           )
         ).get(_key)
 
@@ -177,7 +178,7 @@ class Batch {
                   )
                 }
               ),
-              defaultDataLoader
+            defaultDataLoader
           )
         ).get(_key)
 
@@ -187,4 +188,4 @@ class Batch {
   }
 )
 
-module.exports = Batch
+export default Batch

@@ -1,6 +1,6 @@
 {
   "name": "@oudy/amqp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AMQP Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},

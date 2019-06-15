@@ -1,6 +1,6 @@
 {
   "name": "@oudy/redis",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Redis Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/Redis#readme",
   "dependencies": {
-    "@oudy/drivers": "^1.0.0",
-    "@oudy/ttlmap": "^1.0.0",
-    "bluebird": "^3.5.3",
+    "@oudy/drivers": "^1.0.1",
+    "@oudy/ttlmap": "^1.0.1",
+    "bluebird": "^3.5.5",
     "dataloader": "^1.4.0",
     "redis": "^2.8.0"
   }

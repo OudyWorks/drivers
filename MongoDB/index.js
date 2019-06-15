@@ -23,6 +23,7 @@ class MongoDB extends extend(mongodb) {
 }
 
 export {
-  IDRegex,
+  IDRegex
 }
+export * from 'mongodb'
 export default MongoDB

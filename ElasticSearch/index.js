@@ -1,7 +1,9 @@
-const Interface = require('@oudy/drivers/interface'),
-  elasticsearch = require('elasticsearch')
+import {
+  extend
+} from '@oudy/drivers/interface'
+import elasticsearch from 'elasticsearch'
 
-class ElasticSearch extends Interface.extend(elasticsearch) {
+class ElasticSearch extends extend(elasticsearch) {
   static configureFor() {
     // get the arguments as Array
     const args = Array.from(arguments),
@@ -18,4 +20,5 @@ class ElasticSearch extends Interface.extend(elasticsearch) {
   }
 }
 
-module.exports = ElasticSearch
+export * from 'elasticsearch'
+export default ElasticSearch

@@ -1,6 +1,6 @@
 {
   "name": "@oudy/elasticsearch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ElasticSearch Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/ElasticSearch#readme",
   "dependencies": {
-    "@oudy/drivers": "^1.0.0",
+    "@oudy/drivers": "^1.0.1",
     "elasticsearch": "^15.4.1"
   }
 }

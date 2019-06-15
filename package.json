@@ -1,6 +1,6 @@
 {
   "name": "@oudy/drivers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a Wrap for database/services we use on projects",
   "main": "index.js",
   "scripts": {},
