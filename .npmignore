@@ -5,3 +5,4 @@ AMQP
 MySQL
 memory-fs
 *.test.js
+package-lock.json
