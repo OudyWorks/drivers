@@ -1,0 +1,30 @@
+{
+  "name": "@oudy/elasticsearch",
+  "version": "1.0.1",
+  "description": "ElasticSearch Driver based on @oudy/drivers Interface",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "peerDependencies": {
+    "@oudy/drivers": "1.x",
+    "elasticsearch": "15.x"
+  },
+  "keywords": [
+    "driver",
+    "database",
+    "elasticsearch"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/ElasticSearch#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.1",
+    "elasticsearch": "^15.4.1"
+  }
+}

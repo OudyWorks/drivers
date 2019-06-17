@@ -1,27 +1,30 @@
 {
-  "name": "@oudy/drivers",
+  "name": "@oudy/amqp",
   "version": "1.0.1",
-  "description": "a Wrap for database/services we use on projects",
+  "description": "AMQP Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OudyWorks/drivers.git"
   },
+  "peerDependencies": {
+    "@oudy/drivers": "1.x",
+    "amqplib": "0.x"
+  },
   "keywords": [
     "driver",
     "database",
-    "mongodb",
-    "elasticsearch",
-    "redis",
-    "amqp",
-    "rabbitmq",
-    "mysql"
+    "amqp"
   ],
   "author": "Ayoub Oudmane <ayoub@oudmane.me>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/OudyWorks/drivers/issues"
   },
-  "homepage": "https://github.com/OudyWorks/drivers#readme"
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/AMQP#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.0",
+    "amqplib": "^0.5.3"
+  }
 }

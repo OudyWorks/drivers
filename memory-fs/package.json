@@ -1,0 +1,29 @@
+{
+  "name": "@oudy/memory-fs",
+  "version": "1.0.1",
+  "description": "memory-fs Driver based on @oudy/drivers Interface",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "peerDependencies": {
+    "@oudy/drivers": "1.x",
+    "memory-fs": "0.x"
+  },
+  "keywords": [
+    "driver",
+    "memory-fs"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/memory-fs#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.0",
+    "memory-fs": "^0.4.1"
+  }
+}
