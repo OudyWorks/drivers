@@ -1,9 +1,10 @@
 {
   "name": "@oudy/drivers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a Wrap for database/services we use on projects",
-  "main": "index.js",
-  "scripts": {},
+  "main": "interface.js",
+  "scripts": {
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OudyWorks/drivers.git"

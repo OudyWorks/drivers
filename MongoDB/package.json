@@ -1,6 +1,6 @@
 {
   "name": "@oudy/mongodb",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "MongoDB Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
@@ -9,8 +9,7 @@
     "url": "git+https://github.com/OudyWorks/drivers.git"
   },
   "peerDependencies": {
-    "mongodb": "3.x",
-    "@oudy/drivers": "1.x"
+    "mongodb": "3.x"
   },
   "keywords": [
     "driver",
@@ -24,7 +23,6 @@
   },
   "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/MongoDB#readme",
   "dependencies": {
-    "@oudy/drivers": "^1.0.1",
     "dataloader": "^1.4.0",
     "mongodb": "^3.2.7",
     "sift": "^7.0.1"
