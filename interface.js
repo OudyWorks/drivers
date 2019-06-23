@@ -1,4 +1,4 @@
-const connections = new Map()
+const clients = new Map()
 
 /**
  * Driver Interface
@@ -6,41 +6,41 @@ const connections = new Map()
  */
 export default class DriverInterface {
   /**
-   * set a configuration
+   * configure a client with name
    * @param {string} name 
    * @param {*} connection 
    * @returns {*}
    */
-  static configureFor(name, connection) {
-    return this.connections.set(name, connection).get(name)
+  static configureWithName(name, client) {
+    return this.clients.set(name, client).get(name)
   }
   /**
-   * set default configuration
+   * configure default client
    * @param {*} connection
    */
   static configure() {
-    return this.configureFor.apply(this, ['default'].concat(Array.from(arguments)))
+    return this.configureWithName.apply(this, ['default'].concat(Array.from(arguments)))
   }
   /**
-   * get a configuration
+   * get a cient with name
    * @param {string} name 
    * @returns {*}
    */
-  static getConnection(name = 'default') {
-    return this.connections.get(name)
+  static getClient(name = 'default') {
+    return this.clients.get(name)
   }
   /**
-   * get default configuration
+   * get default client
    * @returns {*}
    */
-  static get connection() {
-    return this.getConnection()
+  static get client() {
+    return this.getClient()
   }
   /**
-   * get connections
+   * get clients
    * @returns {Map}
    */
-  static get connections() {
-    return connections
+  static get clients() {
+    return clients
   }
 }
