@@ -38,7 +38,7 @@ import MongoDB from '@oudy/mongodb'
 
 Promise.all([
   MongoDB.configureWithName('us', 'myproject', 'mongodb://us_server:27017'),
-  MongoDB.configureWithName('eu', 'myproject', 'mongodb://us_server:27017')
+  MongoDB.configureWithName('eu', 'myproject', 'mongodb://eu_server:27017')
 ]).then(
  ([US_region, EU_region]) => {
    // get from US

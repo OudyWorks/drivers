@@ -1,22 +1,67 @@
 import {
-  extend
-} from '@oudy/drivers/interface'
-import elasticsearch from 'elasticsearch'
+  Client,
+  ConfigOptions
+} from 'elasticsearch'
 
-class ElasticSearch extends extend(elasticsearch) {
-  static configureFor() {
-    // get the arguments as Array
-    const args = Array.from(arguments),
-      // get name of connection from the first argument
-      name = args.shift(),
-      // url and options
-      [options] = args,
+const clients = new Map()
 
-      connection = new elasticsearch.Client(options)
-    return connection.ping().then(
-      () =>
-        super.configureFor(name, connection)
+class ElasticSearch {
+
+  /**
+   * set a configuration of ElasticSearch
+   * @function
+   * @param {string} name - name of the configuration
+   * @param {ConfigOptions} [options] - [Client options](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/client-configuration.html)
+   * @returns {Promise<Client>} client
+   */
+  static configureWithName(
+    name,
+    options = {
+      host: 'localhost:9200'
+    }
+  ) {
+    const client = new Client(options)
+    return client.ping().then(
+      () => {
+        clients.set(name, client)
+        return client
+      }
     )
+  }
+  /**
+   * set default configuration of ElasticSearch
+   * @function
+   * @param {ConfigOptions} [options] - [Client options](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/client-configuration.html)
+   * @returns {Promise<Client>} client
+   */
+  static configure(
+    options = {
+      host: 'localhost:9200'
+    }
+  ) {
+    return this.configureWithName('default', options)
+  }
+  /**
+   * get a client by name
+   * @param {string} name 
+   * @returns {Client}
+   */
+  static getClient(name) {
+    return clients.get(name)
+  }
+  /**
+   * get default client
+   * @returns {Client}
+   */
+  static get client() {
+    return this.getClient('default')
+  }
+  /**
+   * get all clients
+   * @returns {Map<string,Client>}
+   */
+  static get clients() {
+    return clients
   }
 }
 

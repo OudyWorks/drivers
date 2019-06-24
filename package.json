@@ -1,6 +1,6 @@
 {
   "name": "@oudy/drivers",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a Wrap for database/services we use on projects",
   "main": "interface.js",
   "scripts": {
