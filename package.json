@@ -3,8 +3,7 @@
   "version": "1.0.3",
   "description": "a Wrap for database/services we use on projects",
   "main": "interface.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OudyWorks/drivers.git"
@@ -24,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/OudyWorks/drivers/issues"
   },
-  "homepage": "https://github.com/OudyWorks/drivers#readme"
+  "homepage": "https://github.com/OudyWorks/drivers#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "babel-jest": "^24.8.0"
+  }
 }

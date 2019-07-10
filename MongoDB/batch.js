@@ -3,7 +3,6 @@ import {
   ObjectID,
   default as MongoDB
 } from './index'
-import sift from 'sift'
 import Dataloader from 'dataloader'
 
 const batches = new Map()
@@ -17,7 +16,7 @@ class MongoDBBatch {
         key,
         batch = new Dataloader(
           keys => {
-            return MongoDB.getConnection(database).collection(collection).find(
+            return MongoDB.getClient(database).collection(collection).find(
               {
                 _id: {
                   $in: keys.map(
@@ -29,15 +28,16 @@ class MongoDBBatch {
             ).toArray().then(
               documents =>
                 keys.map(
-                  key =>
-                    sift(
-                      {
-                        _id: key
-                      },
-                      documents
-                    ).shift()
+                  _id =>
+                    documents.find(
+                      document =>
+                        document._id.valueOf() == _id.valueOf()
+                    )
                 )
             )
+          },
+          {
+            cache: false
           }
         )
       )
@@ -70,7 +70,7 @@ class MongoDBBatch {
         key,
         batch = new Dataloader(
           documents => {
-            const bulk = MongoDB.getConnection(database).collection(collection).initializeOrderedBulkOp()
+            const bulk = MongoDB.getClient(database).collection(collection).initializeOrderedBulkOp()
             documents.forEach(
               object =>
                 bulk.insert(object)
@@ -78,7 +78,7 @@ class MongoDBBatch {
             return bulk.execute().then(
               response => {
                 return response.getInsertedIds().map(
-                  id => id._id.toHexString()
+                  id => id._id.valueOf()
                 )
               }
             )
@@ -99,7 +99,7 @@ class MongoDBBatch {
         key,
         batch = new Dataloader(
           payloads => {
-            const bulk = MongoDB.getConnection(database).collection(collection).initializeOrderedBulkOp()
+            const bulk = MongoDB.getClient(database).collection(collection).initializeOrderedBulkOp()
             payloads.forEach(
               ({ id, payload }) =>
                 bulk.find({
@@ -127,7 +127,7 @@ class MongoDBBatch {
         key,
         batch = new Dataloader(
           payloads => {
-            const bulk = MongoDB.getConnection(database).collection(collection).initializeOrderedBulkOp()
+            const bulk = MongoDB.getClient(database).collection(collection).initializeOrderedBulkOp()
             payloads.forEach(
               ({ id, payload }) =>
                 bulk.find({
