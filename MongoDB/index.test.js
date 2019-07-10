@@ -101,7 +101,7 @@ describe(
                   },
                   {
                     $set: {
-                      name: `client ${_id}`
+                      name: `client ${_id + 2}`
                     }
                   }
                 )
@@ -119,7 +119,7 @@ describe(
                 _id,
                 {
                   $set: {
-                    name: `client ${_id}`
+                    name: `client ${_id + 3}`
                   }
                 },
                 COLLECTION
