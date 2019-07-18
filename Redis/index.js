@@ -1,29 +1,37 @@
 import {
-  extend
-} from '@oudy/drivers/interface'
-import redis from 'redis'
+  ClientOpts,
+  RedisClient,
+  default as redis
+} from 'redis'
 import bluebird from 'bluebird'
 
 bluebird.promisifyAll(redis.RedisClient.prototype)
 bluebird.promisifyAll(redis.Multi.prototype)
 
-class Redis extends extend(class {}) {
-  static configureFor() {
-    // get the arguments as Array
-    const args = Array.from(arguments),
-      // get name of connection from the first argument
-      name = args.shift(),
-      // url and options
-      [options] = args,
+const clients = new Map()
 
-      connection = redis.createClient(options)
+class Redis {
 
+  /**
+   * set a configuration of Redis
+   * @function
+   * @param {string} name - name of the configuration
+   * @param {ClientOpts} [options] - Options
+   * @returns {Promise<RedisClient>} client
+   */
+  static configureWithName(
+    name,
+    options = {}
+  ) {
+    const connection = redis.createClient(options)
     return new Promise(
       (resolve, reject) => {
         connection.on(
           'connect',
-          () =>
+          () => {
+            clients.set(name, connection)
             resolve()
+          }
         )
         connection.on(
           'error',
@@ -31,10 +39,40 @@ class Redis extends extend(class {}) {
             reject(error)
         )
       }
-    ).then(
-      () =>
-        super.configureFor(name, connection)
     )
+  }
+  /**
+   * set default configuration of Redis
+   * @function
+   * @param {ClientOpts} [options] - Options
+   * @returns {Promise<RedisClient>} client
+   */
+  static configure(
+    options = {}
+  ) {
+    return this.configureWithName('default', options)
+  }
+  /**
+   * get a client by name
+   * @param {string} name 
+   * @returns {RedisClient}
+   */
+  static getClient(name) {
+    return clients.get(name)
+  }
+  /**
+   * get default client
+   * @returns {RedisClient}
+   */
+  static get client() {
+    return this.getClient('default')
+  }
+  /**
+   * get all clients
+   * @returns {Map<string,RedisClient>}
+   */
+  static get clients() {
+    return clients
   }
 }
 

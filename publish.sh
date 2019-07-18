@@ -5,7 +5,7 @@ echo "Hi ${NEWVERSION}"
 npm version $NEWVERSION --no-git-tag-version
 mkdir publish
 
-babel --presets @babel/preset-env ./ -D -d publish 
+babel ./ -d publish 
 
 cp package.json publish/
 cp .npmignore publish/

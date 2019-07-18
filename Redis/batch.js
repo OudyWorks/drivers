@@ -1,8 +1,7 @@
 import Redis from './index'
 import DataLoader from 'dataloader'
-import TTLMap from '@oudy/ttlmap'
 
-const batches = new TTLMap(),
+const batches = new Map(),
   defaultDataLoader = {
     cache: false,
     maxBatchSize: 20
@@ -21,7 +20,7 @@ class Batch {
           keys => {
             return new Promise(
               resolve => {
-                Redis.getConnection(client).hmget(
+                Redis.getClient(client).hmget(
                   key,
                   keys,
                   (error, values) => {
@@ -53,7 +52,7 @@ class Batch {
             )
             return new Promise(
               resolve => {
-                Redis.getConnection(client).hmset(
+                Redis.getClient(client).hmset(
                   key,
                   values,
                   () =>
@@ -80,7 +79,7 @@ class Batch {
         new DataLoader(
           keys => new Promise(
             resolve => {
-              Redis.getConnection(client).multi(
+              Redis.getClient(client).multi(
                 keys.map(
                   value => [
                     'sismember',
@@ -100,7 +99,7 @@ class Batch {
 
     return batch.load(value)
   }
-}
+};
 
 // key member [member ...]
 [
