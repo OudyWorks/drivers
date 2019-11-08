@@ -31,7 +31,7 @@ class MongoDBBatch {
                   _id =>
                     documents.find(
                       document =>
-                        document._id.valueOf() == _id.valueOf()
+                        document._id.toString() == _id.toString()
                     )
                 )
             )
@@ -78,7 +78,7 @@ class MongoDBBatch {
             return bulk.execute().then(
               response => {
                 return response.getInsertedIds().map(
-                  id => id._id.valueOf()
+                  id => id._id.toString()
                 )
               }
             )

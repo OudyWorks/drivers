@@ -5,10 +5,10 @@ echo "Hi ${NEWVERSION}"
 npm version $NEWVERSION --no-git-tag-version
 mkdir publish
 
-babel ./ -d publish 
+npx babel ./ -d publish 
 
 cp package.json publish/
-cp .npmignore publish/
+# cp .npmignore publish/
 
 cd publish
 

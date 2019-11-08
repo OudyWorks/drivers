@@ -1,6 +1,6 @@
 {
   "name": "@oudy/mongodb",
-  "version": "1.0.19",
+  "version": "1.0.22",
   "description": "MongoDB Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
@@ -27,6 +27,7 @@
     "mongodb": "^3.2.7"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.0",
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "@shelf/jest-mongodb": "^1.1.0",

@@ -1,7 +1,7 @@
 {
-  "name": "@oudy/redis",
-  "version": "1.0.15",
-  "description": "Redis Driver based on @oudy/drivers Interface",
+  "name": "@oudy/memfs",
+  "version": "1.0.0",
+  "description": "memfs Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
   "repository": {
@@ -9,27 +9,23 @@
     "url": "git+https://github.com/OudyWorks/drivers.git"
   },
   "peerDependencies": {
-    "redis": "2.x",
-    "bluebird": "3.x"
+    "memfs": "2.x"
   },
   "keywords": [
     "driver",
-    "database",
-    "redis"
+    "memfs"
   ],
   "author": "Ayoub Oudmane <ayoub@oudmane.me>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/OudyWorks/drivers/issues"
   },
-  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/Redis#readme",
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/memfs#readme",
   "dependencies": {
-    "@babel/cli": "^7.7.0",
-    "bluebird": "^3.5.5",
-    "dataloader": "^1.4.0",
-    "redis": "^2.8.0"
+    "memfs": "^2.16.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.4",
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4"
   }

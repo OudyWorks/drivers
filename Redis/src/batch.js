@@ -122,7 +122,7 @@ class Batch {
             keys =>
               new Promise(
                 resolve => {
-                  Redis.getConnection(client)[command](
+                  Redis.getClient(client)[command](
                     key,
                     keys,
                     () =>
@@ -158,7 +158,7 @@ class Batch {
             counts =>
               new Promise(
                 resolve => {
-                  Redis.getConnection(client)[command](
+                  Redis.getClient(client)[command](
                     key,
                     counts.reduce((a, b) => a + b),
                     (error, values) => {
