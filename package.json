@@ -1,0 +1,30 @@
+{
+  "name": "@oudy/drivers",
+  "version": "1.0.3",
+  "description": "a Wrap for database/services we use on projects",
+  "main": "interface.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "keywords": [
+    "driver",
+    "database",
+    "mongodb",
+    "elasticsearch",
+    "redis",
+    "amqp",
+    "rabbitmq",
+    "mysql"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers#readme",
+  "devDependencies": {
+    
+  }
+}
