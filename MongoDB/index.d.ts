@@ -5,6 +5,10 @@ declare class MongoDBDriver {
      */
     static clients: Map<string, mongodb.Db>;
     /**
+     * @type Promise<mongodb.Db>[]
+     */
+    static promises: Promise<mongodb.Db>[];
+    /**
      * set a configuration of MongoDB
      * @function
      * @param {string} name - name of the configuration
@@ -33,6 +37,11 @@ declare class MongoDBDriver {
      * @returns {mongodb.Db}
      */
     static get client(): mongodb.Db;
+    /**
+     * resolve all connections
+     * @type Promise<mongodb.Db[]>
+     */
+    static get ready(): Promise<mongodb.Db[]>;
 }
 export * from 'mongodb';
 export declare const IDRegex: RegExp;

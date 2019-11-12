@@ -2,8 +2,15 @@
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongodb = require("mongodb");
+var mongodb = __importStar(require("mongodb"));
 var MongoDBDriver = /** @class */ (function () {
     function MongoDBDriver() {
     }
@@ -22,12 +29,16 @@ var MongoDBDriver = /** @class */ (function () {
         if (url === void 0) { url = 'mongodb://localhost:27017'; }
         if (options === void 0) { options = {}; }
         options.useNewUrlParser = true;
-        return mongodb.MongoClient.connect(url, options).then(function (connection) {
-            return connection.db(database);
-        }).then(function (database) {
-            _this.clients.set(name, database);
-            return database;
+        var promise = new Promise(function (resolve, reject) {
+            mongodb.MongoClient.connect(url, options).then(function (connection) {
+                return connection.db(database);
+            }).then(function (database) {
+                _this.clients.set(name, database);
+                return database;
+            }).then(resolve).catch(reject);
         });
+        this.promises.push(promise);
+        return promise;
     };
     /**
      * set default configuration of MongoDB
@@ -61,10 +72,25 @@ var MongoDBDriver = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MongoDBDriver, "ready", {
+        /**
+         * resolve all connections
+         * @type Promise<mongodb.Db[]>
+         */
+        get: function () {
+            return Promise.all(this.promises);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @type {Map<string, mongodb.Db>}
      */
     MongoDBDriver.clients = new Map();
+    /**
+     * @type Promise<mongodb.Db>[]
+     */
+    MongoDBDriver.promises = [];
     return MongoDBDriver;
 }());
 __export(require("mongodb"));
