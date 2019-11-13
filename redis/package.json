@@ -1,7 +1,7 @@
 {
-  "name": "@oudy/mongodb",
-  "version": "1.0.27",
-  "description": "MongoDB Driver based on @oudy/drivers Interface",
+  "name": "@oudy/redis",
+  "version": "1.0.15",
+  "description": "Redis Driver based on @oudy/drivers Interface",
   "main": "index.js",
   "scripts": {},
   "repository": {
@@ -9,27 +9,29 @@
     "url": "git+https://github.com/OudyWorks/drivers.git"
   },
   "peerDependencies": {
-    "mongodb": "3.3.*",
-    "@oudy/drivers": "^1.0.*"
+    "redis": "2.8.*",
+    "bluebird": "3.5.*",
+    "@oudy/drivers": "^1.0.x"
   },
   "keywords": [
     "driver",
     "database",
-    "mongodb"
+    "redis"
   ],
   "author": "Ayoub Oudmane <ayoub@oudmane.me>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OudyWorks/drivers/issues?q=label:mongodb"
+    "url": "https://github.com/OudyWorks/drivers/issues"
   },
-  "homepage": "https://github.com/OudyWorks/drivers/tree/master/MongoDB#readme",
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/Redis#readme",
   "dependencies": {
     "@oudy/drivers": "^1.0.4",
+    "bluebird": "^3.5.5",
     "dataloader": "^1.4.0",
-    "mongodb": "^3.3.4"
+    "redis": "^2.8.0"
   },
   "devDependencies": {
-    "@types/mongodb": "^3.3.10",
+    "@types/redis": "^2.8.14",
     "typescript": "^3.7.2"
   },
   "files": [
