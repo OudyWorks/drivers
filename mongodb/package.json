@@ -1,0 +1,41 @@
+{
+  "name": "@oudy/mongodb",
+  "version": "1.0.27",
+  "description": "MongoDB Driver based on @oudy/drivers Interface",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "peerDependencies": {
+    "mongodb": "3.3.*",
+    "@oudy/drivers": "^1.0.*"
+  },
+  "keywords": [
+    "driver",
+    "database",
+    "mongodb"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues?q=label:mongodb"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/MongoDB#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.4",
+    "dataloader": "^1.4.0",
+    "mongodb": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^3.3.10",
+    "typescript": "^3.7.2"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "batch.js",
+    "batch.d.ts"
+  ]
+}
