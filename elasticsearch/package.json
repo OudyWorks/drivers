@@ -1,0 +1,39 @@
+{
+  "name": "@oudy/elasticsearch",
+  "version": "1.0.4",
+  "description": "Elasticsearch Driver based on @oudy/drivers Interface",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OudyWorks/drivers.git"
+  },
+  "peerDependencies": {
+    "@oudy/drivers": "1.x",
+    "elasticsearch": "5.x"
+  },
+  "keywords": [
+    "driver",
+    "database",
+    "elasticsearch"
+  ],
+  "author": "Ayoub Oudmane <ayoub@oudmane.me>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OudyWorks/drivers/issues"
+  },
+  "homepage": "https://github.com/OudyWorks/drivers/tree/master/source/AMQP#readme",
+  "dependencies": {
+    "@oudy/drivers": "^1.0.0",
+    "elasticsearch": "^16.5.0"
+  },
+  "devDependencies": {
+    "@types/elasticsearch": "^5.0.36",
+    "@types/node": "^12.12.14",
+    "typescript": "^3.7.2"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
+}
